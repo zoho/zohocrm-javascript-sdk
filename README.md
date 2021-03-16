@@ -50,6 +50,12 @@ All the Zoho CRM APIs are authenticated with OAuth2 standards, so it is mandator
 
 ### CDN URL
 
+- https://static.zohocdn.com/zohocrm/sdk/1.0.0/sdk.js
+
+### Download SDK Zip File
+
+- [Download SDK](https://prezoho.zoho.com/sites/default/files/crm/zohocrmsdk_1_0_0.js.zip)
+
 JavaScript SDK can be incorporated in two ways:
 
 * [Integrating JS SDK via Webapps](https://www.zoho.com/crm/developer/docs/webapp-sdk/).
