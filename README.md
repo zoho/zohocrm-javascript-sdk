@@ -1,7 +1,5 @@
 # ZOHO CRM JAVASCRIPT SDK
 
-Zoho CRM API version 2.
-
 ## Table Of Contents
 
 * [Overview](#overview)
@@ -46,15 +44,19 @@ You can install any browser as per your preference. JavaScript works on any web 
 
 ## Including the SDK in your project
 
-All the Zoho CRM APIs are authenticated with OAuth2 standards, so it is mandatory to register and authenticate your client app with Zoho.
-
 ### CDN URL
+
+- https://static.zohocdn.com/zohocrm/sdk/1.0.0/sdk.js
+
+### Download SDK Zip File
+
+- [Download SDK](https://www.zoho.com/sites/default/files/crm/zohocrmsdk_1_0_0.js.zip)
 
 JavaScript SDK can be incorporated in two ways:
 
 * [Integrating JS SDK via Webapps](https://www.zoho.com/crm/developer/docs/webapp-sdk/).
 
-* Using JS SDK on your own application.
+* [Using JS SDK on your own application](#using-js-sdk-on-your-own-application).
 
 ### Integrating JS SDK via Webapps
 
@@ -85,13 +87,13 @@ JavaScript SDK can be incorporated in two ways:
 
 - Create a redirect.html page for your application.
 - Set up your own web server and authorize the SDK.
-- You can then use the SDK in your own application.
+- You can then use the SDK.
 
 ## Token Persistence
 
 ## Configuration
 
-Before you get started with creating your NodeJS application, you need to register your client and authenticate the app with Zoho.
+Before you get started with creating your JavaScript application, you need to register your client and authenticate the app with Zoho.
 
 - Create an instance of **[Logger](resources/logger/logger.md#logger)** Class to log exception and API information.
 
@@ -112,7 +114,7 @@ Before you get started with creating your NodeJS application, you need to regist
     * Available Domains: US, EU, IN, CN, AU
     * Available Environments: PRODUCTION(), DEVELOPER(), SANDBOX()
     */
-    let environment = USDataCenter.PRODUCTION();
+    let environment = DataCenter.US.PRODUCTION();
     ```
 
 - Create an instance of **[OAuthToken](resources/token/oauth_token.md#oauthtoken)** with the information that you get after registering your Zoho client.
@@ -140,7 +142,6 @@ Before you get started with creating your NodeJS application, you need to regist
       * True - the SDK stores all the modules' field information in cache, and refreshes every hour, if autoRefreshFields is true.
       * False - the SDK temporarily stores the modules' field information in a Map.
       *
-      * if cacheStore true
       * pickListValidation
       * A boolean field that validates user input for a pick list field and allows or disallows the addition of a new value to the list.
       * True - the SDK validates the input. If the value does not exist in the pick list, the SDK throws an error.
@@ -193,7 +194,6 @@ class SDKInitializer{
           * True - the SDK stores all the modules' field information in cache, and refreshes every hour, if autoRefreshFields is true.
           * False - the SDK temporarily stores the modules' field information in a Map.
           *
-          * if cacheStore true
           * pickListValidation
           * A boolean field that validates user input for a pick list field and allows or disallows the addition of a new value to the list.
           * True - the SDK validates the input. If the value does not exist in the pick list, the SDK throws an error.
@@ -264,7 +264,6 @@ However, some specific operations have different expected objects, such as the f
         - **ResponseWrapper**
         - **CountWrapper**
         - **DeletedRecordsWrapper**
-        - **FileBodyWrapper**
         - **MassUpdateResponseWrapper**
         - **APIException**
 
@@ -329,7 +328,6 @@ class Record{
           * True - the SDK stores all the modules' field information in cache, and refreshes every hour, if autoRefreshFields is true.
           * False - the SDK temporarily stores the modules' field information in a Map.
           *
-          * if cacheStore true
           * pickListValidation
           * A boolean field that validates user input for a pick list field and allows or disallows the addition of a new value to the list.
           * True - the SDK validates the input. If the value does not exist in the pick list, the SDK throws an error.
