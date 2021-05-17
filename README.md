@@ -1,5 +1,7 @@
 # ZOHO CRM JAVASCRIPT SDK
 
+Zoho CRM API version 2.
+
 ## Table Of Contents
 
 * [Overview](#overview)
@@ -46,11 +48,11 @@ You can install any browser as per your preference. JavaScript works on any web 
 
 ### CDN URL
 
-- https://static.zohocdn.com/zohocrm/sdk/1.0.0/sdk.js
+- https://static.zohocdn.com/zohocrm/sdk/1.1.0/sdk.js
 
 ### Download SDK Zip File
 
-- [Download SDK](https://www.zoho.com/sites/default/files/crm/zohocrmsdk_1_0_0.js.zip)
+- [Download SDK](https://www.zoho.com/sites/default/files/crm/zohocrmsdk_1_1_0.zip)
 
 JavaScript SDK can be incorporated in two ways:
 

@@ -3754,8 +3754,46 @@ ZCRM.Record = {
 
 		},
 
+		UpsertRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpsertRecordsHeader"),
+
+
+		},
+
+		GetRecordsHeader : {
+			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetRecordsHeader"),
+
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.GetRecordsHeader"),
+
+
+		},
+
+		GetRecordHeader : {
+			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetRecordHeader"),
+
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.GetRecordHeader"),
+
+
+		},
+
+		GetDeletedRecordsParam : {
+			TYPE : 	new Param("type", "Record.Model.GetDeletedRecordsParam"),
+
+			PAGE : 	new Param("page", "Record.Model.GetDeletedRecordsParam"),
+
+			PER_PAGE : 	new Param("per_page", "Record.Model.GetDeletedRecordsParam"),
+
+
+		},
+
 		GetMassUpdateStatusParam : {
 			JOB_ID : 	new Param("job_id", "Record.Model.GetMassUpdateStatusParam"),
+
+
+		},
+
+		UpdateRecordHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpdateRecordHeader"),
 
 
 		},
@@ -3818,14 +3856,20 @@ ZCRM.Record = {
 
 		},
 
-		GetRecordsHeader : {
-			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetRecordsHeader"),
+		UpdateRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpdateRecordsHeader"),
 
 
 		},
 
-		GetRecordHeader : {
-			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "Record.Model.GetRecordHeader"),
+		SearchRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.SearchRecordsHeader"),
+
+
+		},
+
+		DeleteRecordHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.DeleteRecordHeader"),
 
 
 		},
@@ -3838,12 +3882,8 @@ ZCRM.Record = {
 
 		},
 
-		GetDeletedRecordsParam : {
-			TYPE : 	new Param("type", "Record.Model.GetDeletedRecordsParam"),
-
-			PAGE : 	new Param("page", "Record.Model.GetDeletedRecordsParam"),
-
-			PER_PAGE : 	new Param("per_page", "Record.Model.GetDeletedRecordsParam"),
+		DeleteRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.DeleteRecordsHeader"),
 
 
 		},
@@ -3903,10 +3943,11 @@ ZCRM.Record = {
 		 * @param {Long} id A BigInt
 		 * @param {String} moduleAPIName A String
 		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async updateRecord(id, moduleAPIName, request){
+		async updateRecord(id, moduleAPIName, request, headerInstance=null){
 			if((!(Object.prototype.toString.call(id) == "[object BigInt]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: id EXPECTED TYPE: BigInt", null, null);
 			}
@@ -3915,6 +3956,9 @@ ZCRM.Record = {
 			}
 			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -3927,6 +3971,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
+			handlerInstance.setHeader(headerInstance);
 			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
@@ -3938,10 +3983,11 @@ ZCRM.Record = {
 		 * @param {Long} id A BigInt
 		 * @param {String} moduleAPIName A String
 		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async deleteRecord(id, moduleAPIName, paramInstance=null){
+		async deleteRecord(id, moduleAPIName, paramInstance=null, headerInstance=null){
 			if((!(Object.prototype.toString.call(id) == "[object BigInt]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: id EXPECTED TYPE: BigInt", null, null);
 			}
@@ -3950,6 +3996,9 @@ ZCRM.Record = {
 			}
 			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -3961,6 +4010,7 @@ ZCRM.Record = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4032,15 +4082,19 @@ ZCRM.Record = {
 		 * The method to update records
 		 * @param {String} moduleAPIName A String
 		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async updateRecords(moduleAPIName, request){
+		async updateRecords(moduleAPIName, request, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -4052,6 +4106,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
+			handlerInstance.setHeader(headerInstance);
 			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
@@ -4062,15 +4117,19 @@ ZCRM.Record = {
 		 * The method to delete records
 		 * @param {String} moduleAPIName A String
 		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async deleteRecords(moduleAPIName, paramInstance=null){
+		async deleteRecords(moduleAPIName, paramInstance=null, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -4080,6 +4139,7 @@ ZCRM.Record = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
 
 		}
@@ -4088,15 +4148,19 @@ ZCRM.Record = {
 		 * The method to upsert records
 		 * @param {String} moduleAPIName A String
 		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async upsertRecords(moduleAPIName, request){
+		async upsertRecords(moduleAPIName, request, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -4108,6 +4172,7 @@ ZCRM.Record = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_ACTION);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
+			handlerInstance.setHeader(headerInstance);
 			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");
@@ -4150,15 +4215,19 @@ ZCRM.Record = {
 		 * The method to search records
 		 * @param {String} moduleAPIName A String
 		 * @param {ParameterMap} paramInstance An instance of ParameterMap
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async searchRecords(moduleAPIName, paramInstance=null){
+		async searchRecords(moduleAPIName, paramInstance=null, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((paramInstance != null) && (!(paramInstance instanceof ParameterMap))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: paramInstance EXPECTED TYPE: ParameterMap", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -4169,6 +4238,7 @@ ZCRM.Record = {
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
 			handlerInstance.setParam(paramInstance);
+			handlerInstance.setHeader(headerInstance);
 			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.ResponseHandler", "application/json");
@@ -4264,7 +4334,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("multipart/form-data");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
-			await Utility.getModules();
+			await Utility.verifyPhotoSupport(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.FileHandler", "application/json");
 
 		}

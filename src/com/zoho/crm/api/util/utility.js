@@ -3,16 +3,24 @@
  */
 class Utility {
 
+    static moduleAPIName = null;
+
     static isEmpty(obj) {
 
         return Object.keys(obj).length === 0;
+    }
+
+    static async getFields(moduleAPIName) {
+        this.moduleAPIName = moduleAPIName;
+
+        await this.getFieldsInfo(this.moduleAPIName);
     }
 
     /**
      * This method to fetch field details of the current module for the current user and store the result in a JSON file.
      * @param {string} moduleAPIName A String containing the CRM module API name.
      */
-    static async getFields(moduleAPIName) {
+    static async getFieldsInfo(moduleAPIName) {
 
         let lastModifiedTime = null;
 
@@ -214,7 +222,7 @@ class Utility {
 
             for(let module of modifiedModules.keys()) {
 
-                await Utility.getFields(module);
+                await Utility.getFieldsInfo(module);
             }
         }
     }
@@ -341,7 +349,7 @@ class Utility {
 				{
 					commonAPIHandler.setModuleAPIName(relatedListJO[Constants.MODULE.toLowerCase()]);
 
-				    await Utility.getFields(relatedListJO[Constants.MODULE.toLowerCase()]);
+				    await Utility.getFieldsInfo(relatedListJO[Constants.MODULE.toLowerCase()]);
                 }
 
 				return true;
@@ -459,7 +467,7 @@ class Utility {
                         fieldsDetails[field.getAPIName()] = fieldDetail;
                     }
 
-                    if (Constants.INVENTORY_MODULES.includes(moduleAPIName)) {
+                    if (Constants.INVENTORY_MODULES.includes(moduleAPIName.toLowerCase())) {
 
                         let fieldDetail = {};
 
@@ -473,7 +481,7 @@ class Utility {
 
                         fieldsDetails[Constants.LINE_TAX] = fieldDetail;
                     }
-                    if (Constants.NOTES == moduleAPIName) {
+                    if (Constants.NOTES.toLowerCase() == moduleAPIName.toLowerCase()) {
 
                         let fieldDetail = {};
 
@@ -486,8 +494,7 @@ class Utility {
                         fieldsDetails[Constants.ATTACHMENTS] = fieldDetail;
                     }
                 }
-                else if (responseObject instanceof ZCRM.Field.Model.APIException)
-                {
+                else if (responseObject instanceof ZCRM.Field.Model.APIException) {
                     let errorResponse = {};
 
                     errorResponse.code = await responseObject.getCode().getValue();
@@ -496,7 +503,13 @@ class Utility {
 
                     errorResponse.message = await responseObject.getMessage().getValue();
 
-                    throw new SDKException(Constants.API_EXCEPTION, null, errorResponse);
+                    let exception = new SDKException(Constants.API_EXCEPTION, null, errorResponse);
+
+                    if(this.moduleAPIName.toLowerCase() == moduleAPIName.toLowerCase()) {
+                        throw exception;
+                    }
+
+                    SDKLogger.log(Levels.ERROR, exception.toString());
                 }
             }
             else {
@@ -512,9 +525,8 @@ class Utility {
         return fieldsDetails;
     }
 
-    static async getModules() {
-
-        // this.apiSupportedModule = this.apiSupportedModule.size > 0 ? this.apiSupportedModule : await this.getAllModules(null);
+    static async verifyPhotoSupport(moduleAPIName) {
+        return;
     }
 
     static async getAllModules(header) {
@@ -604,7 +616,7 @@ class Utility {
 
         Utility.forceRefresh = true;
 
-        await Utility.getFields(null);
+        await Utility.getFieldsInfo(null);
 
         Utility.forceRefresh = false;
     }
@@ -781,7 +793,7 @@ class Utility {
 
             if(module.length > 0) {
 
-                await Utility.getFields(module);
+                await Utility.getFieldsInfo(module);
             }
 
             fieldDetail.name = keyName;
