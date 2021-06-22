@@ -575,15 +575,15 @@ ZCRM.RelatedRecord = {
 
 		},
 
-		DelinkRecordHeader : {
-			X_EXTERNAL : 	new Header("X-EXTERNAL", "RelatedRecord.Model.DelinkRecordHeader"),
+		DelinkRecordsHeader : {
 
+		},
+
+		DelinkRecordHeader : {
 
 		},
 
 		UpdateRelatedRecordHeader : {
-			X_EXTERNAL : 	new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordHeader"),
-
 
 		},
 
@@ -598,8 +598,10 @@ ZCRM.RelatedRecord = {
 		GetRelatedRecordsHeader : {
 			IF_MODIFIED_SINCE : 	new Header("If-Modified-Since", "RelatedRecord.Model.GetRelatedRecordsHeader"),
 
-			X_EXTERNAL : 	new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordsHeader"),
 
+		},
+
+		UpdateRelatedRecordsHeader : {
 
 		},
 
@@ -617,8 +619,9 @@ ZCRM.RelatedRecord = {
 		 * @param {String} relatedListAPIName A String
 		 * @param {Long} recordId A BigInt
 		 * @param {String} moduleAPIName A String
+		 * @param {String} xExternal A String
 		 */
-		constructor(relatedListAPIName, recordId, moduleAPIName){
+		constructor(relatedListAPIName, recordId, moduleAPIName, xExternal=null){
 			if((!(Object.prototype.toString.call(relatedListAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedListAPIName EXPECTED TYPE: String", null, null);
 			}
@@ -628,9 +631,13 @@ ZCRM.RelatedRecord = {
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
+			if((xExternal != null) && (!(Object.prototype.toString.call(xExternal) == "[object String]"))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: xExternal EXPECTED TYPE: String", null, null);
+			}
 						this.relatedListAPIName = relatedListAPIName;
 						this.recordId = recordId;
 						this.moduleAPIName = moduleAPIName;
+						this.xExternal = xExternal;
 
 		}
 
@@ -659,6 +666,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordsHeader"), this.xExternal);
 			handlerInstance.setParam(paramInstance);
 			handlerInstance.setHeader(headerInstance);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
@@ -690,6 +698,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordsHeader"), this.xExternal);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
@@ -716,6 +725,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.DelinkRecordsHeader"), this.xExternal);
 			handlerInstance.setParam(paramInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
@@ -748,6 +758,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_GET);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_READ);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.GetRelatedRecordHeader"), this.xExternal);
 			handlerInstance.setHeader(headerInstance);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ResponseHandler", "application/json");
@@ -758,19 +769,15 @@ ZCRM.RelatedRecord = {
 		 * The method to update related record
 		 * @param {Long} relatedRecordId A BigInt
 		 * @param {BodyWrapper} request An instance of BodyWrapper
-		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async updateRelatedRecord(relatedRecordId, request, headerInstance=null){
+		async updateRelatedRecord(relatedRecordId, request){
 			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
 			}
 			if((request != null) && (!(request instanceof ZCRM.RelatedRecord.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
-			}
-			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
-				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -787,7 +794,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setCategoryMethod(Constants.REQUEST_CATEGORY_UPDATE);
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
-			handlerInstance.setHeader(headerInstance);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.UpdateRelatedRecordHeader"), this.xExternal);
 			await Utility.getRelatedLists(this.relatedListAPIName, this.moduleAPIName, handlerInstance);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
@@ -796,16 +803,12 @@ ZCRM.RelatedRecord = {
 		/**
 		 * The method to delink record
 		 * @param {Long} relatedRecordId A BigInt
-		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async delinkRecord(relatedRecordId, headerInstance=null){
+		async delinkRecord(relatedRecordId){
 			if((!(Object.prototype.toString.call(relatedRecordId) == "[object BigInt]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: relatedRecordId EXPECTED TYPE: BigInt", null, null);
-			}
-			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
-				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -820,7 +823,7 @@ ZCRM.RelatedRecord = {
 			handlerInstance.setAPIPath(apiPath);
 			handlerInstance.setHttpMethod(Constants.REQUEST_METHOD_DELETE);
 			handlerInstance.setCategoryMethod(Constants.REQUEST_METHOD_DELETE);
-			handlerInstance.setHeader(headerInstance);
+			await handlerInstance.addHeader(new Header("X-EXTERNAL", "RelatedRecord.Model.DelinkRecordHeader"), this.xExternal);
 			return handlerInstance.apiCall("RelatedRecord.Model.ActionHandler", "application/json");
 
 		}

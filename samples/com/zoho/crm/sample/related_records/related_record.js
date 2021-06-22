@@ -13,9 +13,10 @@ class RelatedRecord{
         //let moduleAPIName = "Products";
         // let recordId = 34096430798007n;
         // let relatedListAPIName = "Price_Books";
+        // let xExternal = "";
 
         //Get instance of RelatedRecordsOperations Class that takes moduleAPIName, recordId and relatedListAPIName as parameter
-        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName);
+        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName, xExternal);
 
         //Get instance of ParameterMap Class
         let paramInstance = new ParameterMap();
@@ -522,9 +523,10 @@ class RelatedRecord{
         // let recordId = 34096430798007n;
         // let relatedModuleAPIName = "Price_Books";
         // let relatedListId = 34096432414001n;
+        // let xExternal = "";
 
         //Get instance of RelatedRecordsOperations Class that takes moduleAPIName, recordId and relatedListAPIName as parameter
-        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName);
+        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName, xExternal);
 
         //Get instance of HeaderMap Class
         let headerInstance = new HeaderMap();
@@ -987,9 +989,10 @@ class RelatedRecord{
         //let moduleAPIName = "Products";
         // let recordId = 34096430798007n;
         // let relatedModuleAPIName = "Price_Books";
+        // let xExternal = "";
 
         //Get instance of RelatedRecordsOperations Class that takes moduleAPIName, recordId and relatedListAPIName as parameter
-        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName);
+        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName, xExternal);
 
         //Get instance of BodyWrapper Class that will contain the request body
         let request = new ZCRM.RelatedRecord.Model.BodyWrapper();
@@ -1139,9 +1142,10 @@ class RelatedRecord{
         // let recordId = 34096430798007n;
         // let relatedModuleAPIName = "Price_Books";
         // let relatedId = 34096432414001n;
+        // let xExternal = "";
 
         //Get instance of RelatedRecordsOperations Class that takes moduleAPIName, recordId and relatedListAPIName as parameter
-        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName);
+        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName, xExternal);
 
         //Get instance of BodyWrapper Class that will contain the request body
         let request = new ZCRM.RelatedRecord.Model.BodyWrapper();
@@ -1275,9 +1279,10 @@ class RelatedRecord{
         // let recordId = 34096430798007n;
         // let relatedModuleAPIName = "Price_Books";
         // let relatedIds = [34096432414001n, 34096432414002n, 34096432414020n];
+        // let xExternal = "";
 
         //Get instance of RelatedRecordsOperations Class that takes moduleAPIName, recordId and relatedListAPIName as parameter
-        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName);
+        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName, xExternal);
 
         //Get instance of ParameterMap Class
         let paramInstance = new ParameterMap();
@@ -1397,9 +1402,10 @@ class RelatedRecord{
         // let recordId = 34096430798007n;
         // let relatedModuleAPIName = "Price_Books";
         // let relatedListId = 34096432414001n;
+        // let xExternal = "";
 
         //Get instance of RelatedRecordsOperations Class that takes moduleAPIName, recordId and relatedListAPIName as parameter
-        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName);
+        let relatedRecordsOperations = new ZCRM.RelatedRecord.Operations(relatedListAPIName, recordId, moduleAPIName, xExternal);
 
         //Call delinkRecord method that takes relatedListId as parameter.
         let response = await relatedRecordsOperations.delinkRecord(relatedListId);

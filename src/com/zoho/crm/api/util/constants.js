@@ -29,7 +29,7 @@ var Constants = {
 
  ZOHO_SDK : "X-ZOHO-SDK",
 
- SDK_VERSION : "1.1.0",
+ SDK_VERSION : "1.2.0",
 
  GRANT_TYPE : "grant_type",
 

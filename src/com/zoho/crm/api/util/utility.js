@@ -3,7 +3,10 @@
  */
 class Utility {
 
-    static moduleAPIName = null;
+    constructor() {
+
+        this.moduleAPIName = null;
+    }
 
     static isEmpty(obj) {
 

@@ -3754,6 +3754,12 @@ ZCRM.Record = {
 
 		},
 
+		CreateRecordsHeader : {
+			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.CreateRecordsHeader"),
+
+
+		},
+
 		UpsertRecordsHeader : {
 			X_EXTERNAL : 	new Header("X-EXTERNAL", "Record.Model.UpsertRecordsHeader"),
 
@@ -4052,15 +4058,19 @@ ZCRM.Record = {
 		 * The method to create records
 		 * @param {String} moduleAPIName A String
 		 * @param {BodyWrapper} request An instance of BodyWrapper
+		 * @param {HeaderMap} headerInstance An instance of HeaderMap
 		 * @returns {APIResponse} An instance of APIResponse
 		 * @throws {SDKException}
 		 */
-		async createRecords(moduleAPIName, request){
+		async createRecords(moduleAPIName, request, headerInstance=null){
 			if((!(Object.prototype.toString.call(moduleAPIName) == "[object String]"))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: moduleAPIName EXPECTED TYPE: String", null, null);
 			}
 			if((request != null) && (!(request instanceof ZCRM.Record.Model.BodyWrapper))){
 				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: request EXPECTED TYPE: BodyWrapper", null, null);
+			}
+			if((headerInstance != null) && (!(headerInstance instanceof HeaderMap))){
+				throw new SDKException(Constants.DATA_TYPE_ERROR, "KEY: headerInstance EXPECTED TYPE: HeaderMap", null, null);
 			}
 			var handlerInstance = new CommonAPIHandler();
 			var apiPath = '';
@@ -4072,6 +4082,7 @@ ZCRM.Record = {
 			handlerInstance.setContentType("application/json");
 			handlerInstance.setRequest(request);
 			handlerInstance.setMandatoryChecker(true);
+			handlerInstance.setHeader(headerInstance);
 			await Utility.getFields(moduleAPIName);
 			handlerInstance.setModuleAPIName(moduleAPIName);
 			return handlerInstance.apiCall("Record.Model.ActionHandler", "application/json");

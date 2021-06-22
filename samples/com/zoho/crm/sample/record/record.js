@@ -1563,8 +1563,11 @@ class Record{
         //Set the array containing the process to be run
         request.setProcess(process);
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call createRecords method that takes BodyWrapper instance and moduleAPIName as parameters
-        let response = await recordOperations.createRecords(moduleAPIName, request);
+        let response = await recordOperations.createRecords(moduleAPIName, request, headerInstance);
 
         if(response != null){
 
@@ -1763,8 +1766,11 @@ class Record{
         //Set the array containing the trigger operations to be run
         request.setTrigger(trigger);
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call updateRecords method that takes BodyWrapper instance and moduleAPIName as parameter.
-        let response = await recordOperations.updateRecords(moduleAPIName, request);
+        let response = await recordOperations.updateRecords(moduleAPIName, request, headerInstance);
 
         if(response != null){
 
@@ -1960,8 +1966,11 @@ class Record{
 
         request.setTrigger(trigger);
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call updateRecord method that takes BodyWrapper instance, ModuleAPIName and recordId as parameter.
-        let response = await recordOperations.updateRecord(recordId, moduleAPIName, request);
+        let response = await recordOperations.updateRecord(recordId, moduleAPIName, request, headerInstance);
 
         if(response != null){
 
@@ -2076,8 +2085,11 @@ class Record{
         //Possible parameters for Delete Record operation
         await paramInstance.add(ZCRM.Record.Model.DeleteRecordParam.WF_TRIGGER, "true");
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call deleteRecord method that takes paramInstance, ModuleAPIName and recordId as parameter.
-        let response = await recordOperations.deleteRecord(recordId, moduleAPIName, paramInstance);
+        let response = await recordOperations.deleteRecord(recordId, moduleAPIName, paramInstance, headerInstance);
 
         if(response != null){
 
@@ -2196,8 +2208,11 @@ class Record{
 
         await paramInstance.add(ZCRM.Record.Model.DeleteRecordsParam.WF_TRIGGER, "true");
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call deleteRecords method that takes paramInstance and moduleAPIName as parameter.
-        let response = await recordOperations.deleteRecords(moduleAPIName, paramInstance);
+        let response = await recordOperations.deleteRecords(moduleAPIName, paramInstance, headerInstance);
 
         if(response != null){
 
@@ -2374,8 +2389,11 @@ class Record{
         //Set the array containing duplicate check fiels to BodyWrapper instance
         request.setDuplicateCheckFields(duplicateCheckFields);
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call upsertRecords method that takes BodyWrapper instance and moduleAPIName as parameter.
-        let response = await recordOperations.upsertRecords(moduleAPIName, request);
+        let response = await recordOperations.upsertRecords(moduleAPIName, request, headerInstance);
 
         if(response != null){
 
@@ -2650,8 +2668,11 @@ class Record{
         //Encoding must be done for parentheses or comma
         await paramInstance.add(ZCRM.Record.Model.SearchRecordsParam.CRITERIA, "((Last_Name:starts_with:Last Name) or (Company:starts_with:fasf\\(123\\) K))");
 
+        //Get instance of HeaderMap Class
+        let headerInstance = new HeaderMap();
+
         //Call searchRecords method that takes ParameterMap Instance and moduleAPIName as parameter
-        let response = await recordOperations.searchRecords(moduleAPIName, paramInstance);
+        let response = await recordOperations.searchRecords(moduleAPIName, paramInstance, headerInstance);
 
         if(response != null){
 
